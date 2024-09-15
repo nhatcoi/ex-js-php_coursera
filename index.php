@@ -2,12 +2,14 @@
 require_once 'Database.php';
 session_start();
 
+
+
 if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
+} else {
+    $user_id = $_SESSION['user_id'];
 }
-
-$user_id = $_SESSION['user_id'];
 
 // Create a new instance of the Database class
 $database = new Database();
@@ -20,6 +22,13 @@ $stmt->execute([':user_id' => $user_id]);
 $profiles = $stmt->fetchAll();
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chuck Severance's Resume Registry</title>
+</head>
+<body>
 <h1>Chuck Severance's Resume Registry</h1>
 
 <?php

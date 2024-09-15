@@ -5,14 +5,26 @@ in the users table as described below.-->
 
 
 <?php
+require_once 'Database.php';
+
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $conn = new mysqli('localhost:3306', 'root', '', 'jsphp');
-    $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
+
+    // Create a new instance of the Database class
+    $database = new Database();
+    $conn = $database->connect();
+
+    // Prepare and execute the SQL statement
+    $sql = "SELECT * FROM users WHERE email = :email AND password = :password";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([
+        ':email' => $email,
+        ':password' => $password
+    ]);
+
+    if ($stmt->rowCount() > 0) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
         session_start();
         $_SESSION['email'] = $email;
         $_SESSION['user_id'] = $user['user_id']; // Set user_id in session
