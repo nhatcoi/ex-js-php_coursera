@@ -26,10 +26,10 @@ $profiles = $stmt->fetchAll();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chuck Severance's Resume Registry</title>
+    <title>46ebe2a5</title>
 </head>
 <body>
-<h1>Chuck Severance's Resume Registry</h1>
+<h1> 46ebe2a5 Chuck Severance's Resume Registry</h1>
 
 <?php
 if (isset($_SESSION['email'])) {
